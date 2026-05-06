@@ -1,0 +1,356 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.wrapper { padding: 2rem 1.5rem; max-width: 680px; }
+
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 1.25rem;
+}
+.section-badge {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.07em;
+  text-transform: uppercase; padding: 3px 10px;
+  border-radius: var(--border-radius-md);
+  background: #E1F5EE; color: #0F6E56;
+}
+.section-title {
+  font-size: 16px; font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px; margin-bottom: 0.5rem;
+}
+thead tr {
+  background: var(--color-background-secondary);
+}
+th {
+  text-align: left; padding: 8px 10px;
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+th.right, td.right { text-align: right; }
+td {
+  padding: 9px 10px;
+  color: var(--color-text-primary);
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+.subtotal td {
+  background: var(--color-background-secondary);
+  font-weight: 500; color: var(--color-text-primary);
+}
+.total-row td {
+  background: #E1F5EE; color: #085041;
+  font-weight: 500; font-size: 13px;
+}
+.muted { color: var(--color-text-secondary); font-size: 12px; }
+.card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+.divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 2rem 0; }
+.note {
+  font-size: 12px; color: var(--color-text-secondary);
+  margin-top: 0.75rem; line-height: 1.6;
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--color-border-tertiary);
+}
+
+/* Cronograma */
+.crono-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.crono-table th {
+  padding: 7px 8px; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--color-text-secondary); font-weight: 500;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  background: var(--color-background-secondary);
+  white-space: nowrap;
+}
+.crono-table td {
+  padding: 8px; border-bottom: 0.5px solid var(--color-border-tertiary);
+  vertical-align: middle;
+  color: var(--color-text-primary);
+}
+.crono-table tr:last-child td { border-bottom: none; }
+.bar-cell { width: 260px; }
+.bar-bg {
+  background: var(--color-background-secondary);
+  border-radius: 4px; height: 10px; position: relative;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 4px; position: absolute; top: 0;
+}
+.etapa-label { font-size: 12px; color: var(--color-text-primary); }
+.resp-badge {
+  display: inline-block; font-size: 11px; padding: 2px 8px;
+  border-radius: var(--border-radius-md); font-weight: 400;
+  background: var(--color-background-secondary);
+  color: var(--color-text-secondary);
+}
+.week-label { font-size: 11px; color: var(--color-text-secondary); text-align: center; }
+</style>
+
+<div class="wrapper">
+
+  <!-- TABELA 1: HORAS TÉCNICAS -->
+  <div class="section-header">
+    <span class="section-badge">Modelo</span>
+    <span class="section-title">Tabela de custos — horas técnicas</span>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Profissional / função</th>
+          <th class="right">Horas</th>
+          <th class="right">Valor/hora (R$)</th>
+          <th class="right">Subtotal (R$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Biólogo responsável técnico<br>
+            <span class="muted">Coordenação, campo e relatório</span>
+          </td>
+          <td class="right">40</td>
+          <td class="right">120,00</td>
+          <td class="right">4.800,00</td>
+        </tr>
+        <tr>
+          <td>
+            Biólogo assistente<br>
+            <span class="muted">Coleta de dados e identificação</span>
+          </td>
+          <td class="right">32</td>
+          <td class="right">80,00</td>
+          <td class="right">2.560,00</td>
+        </tr>
+        <tr>
+          <td>
+            Técnico ambiental<br>
+            <span class="muted">Apoio de campo e equipamentos</span>
+          </td>
+          <td class="right">24</td>
+          <td class="right">55,00</td>
+          <td class="right">1.320,00</td>
+        </tr>
+        <tr>
+          <td>
+            Analista de SIG / geoprocessamento<br>
+            <span class="muted">Mapeamento e análise espacial</span>
+          </td>
+          <td class="right">20</td>
+          <td class="right">90,00</td>
+          <td class="right">1.800,00</td>
+        </tr>
+        <tr>
+          <td>
+            Estagiário<br>
+            <span class="muted">Digitação, organização e apoio</span>
+          </td>
+          <td class="right">30</td>
+          <td class="right">20,00</td>
+          <td class="right">600,00</td>
+        </tr>
+        <tr class="subtotal">
+          <td colspan="2">Total de horas</td>
+          <td class="right">146 h</td>
+          <td class="right">11.080,00</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Valores baseados em pesquisa de mercado realizada em abril/2025 junto a três empresas de consultoria ambiental de Belo Horizonte/MG e tabela de honorários do CRBio-04. Os valores são referenciais e devem ser atualizados pelo grupo conforme pesquisa própria.</p>
+  </div>
+
+  <!-- TABELA 2: MATERIAL DE CONSUMO -->
+  <div class="section-header">
+    <span class="section-badge">Modelo</span>
+    <span class="section-title">Tabela de custos — material de consumo</span>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th class="right">Qtd.</th>
+          <th class="right">Unid.</th>
+          <th class="right">Valor unit. (R$)</th>
+          <th class="right">Total (R$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Frascos de coleta (250 ml)</td>
+          <td class="right">50</td>
+          <td class="right">un</td>
+          <td class="right">3,50</td>
+          <td class="right">175,00</td>
+        </tr>
+        <tr>
+          <td>Sacos plásticos para amostras</td>
+          <td class="right">2</td>
+          <td class="right">pct</td>
+          <td class="right">18,00</td>
+          <td class="right">36,00</td>
+        </tr>
+        <tr>
+          <td>Fichas de campo impressas</td>
+          <td class="right">200</td>
+          <td class="right">un</td>
+          <td class="right">0,30</td>
+          <td class="right">60,00</td>
+        </tr>
+        <tr>
+          <td>Pranchetas</td>
+          <td class="right">4</td>
+          <td class="right">un</td>
+          <td class="right">12,00</td>
+          <td class="right">48,00</td>
+        </tr>
+        <tr>
+          <td>Álcool 70% (1L)</td>
+          <td class="right">3</td>
+          <td class="right">fr</td>
+          <td class="right">14,00</td>
+          <td class="right">42,00</td>
+        </tr>
+        <tr>
+          <td>Luvas descartáveis (cx 100 un)</td>
+          <td class="right">2</td>
+          <td class="right">cx</td>
+          <td class="right">32,00</td>
+          <td class="right">64,00</td>
+        </tr>
+        <tr>
+          <td>Pinças e espátulas</td>
+          <td class="right">6</td>
+          <td class="right">un</td>
+          <td class="right">8,00</td>
+          <td class="right">48,00</td>
+        </tr>
+        <tr>
+          <td>Baterias (AA)</td>
+          <td class="right">4</td>
+          <td class="right">pct</td>
+          <td class="right">15,00</td>
+          <td class="right">60,00</td>
+        </tr>
+        <tr>
+          <td>Repelente (frasco 200 ml)</td>
+          <td class="right">4</td>
+          <td class="right">un</td>
+          <td class="right">22,00</td>
+          <td class="right">88,00</td>
+        </tr>
+        <tr>
+          <td>Encadernação do relatório final</td>
+          <td class="right">3</td>
+          <td class="right">un</td>
+          <td class="right">35,00</td>
+          <td class="right">105,00</td>
+        </tr>
+        <tr class="subtotal">
+          <td colspan="4">Total — material de consumo</td>
+          <td class="right">726,00</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Cotações realizadas em lojas de produtos científicos e papelarias de Belo Horizonte/MG. O grupo deve substituir ou acrescentar itens conforme os métodos de valoração adotados.</p>
+  </div>
+
+  <!-- RESUMO GERAL -->
+  <div class="card" style="margin-bottom:2rem;">
+    <table>
+      <thead>
+        <tr><th colspan="2">Resumo financeiro da proposta</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Horas técnicas</td>
+          <td class="right">R$ 11.080,00</td>
+        </tr>
+        <tr>
+          <td>Material de consumo</td>
+          <td class="right">R$ 726,00</td>
+        </tr>
+        <tr class="total-row">
+          <td>Custo total previsto</td>
+          <td class="right">R$ 11.806,00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CRONOGRAMA -->
+  <div class="section-header">
+    <span class="section-badge">Modelo</span>
+    <span class="section-title">Cronograma de execução dos serviços</span>
+  </div>
+
+  <div class="card" style="overflow-x:auto;">
+    <table class="crono-table">
+      <thead>
+        <tr>
+          <th style="width:200px;">Etapa</th>
+          <th style="width:110px;">Responsável</th>
+          <th class="week-label" style="width:40px;">S1</th>
+          <th class="week-label" style="width:40px;">S2</th>
+          <th class="week-label" style="width:40px;">S3</th>
+          <th class="week-label" style="width:40px;">S4</th>
+          <th class="week-label" style="width:40px;">S5</th>
+          <th class="week-label" style="width:40px;">S6</th>
+          <th class="week-label" style="width:40px;">S7</th>
+          <th class="week-label" style="width:40px;">S8</th>
+        </tr>
+      </thead>
+      <tbody id="crono-body"></tbody>
+    </table>
+    <p class="note" style="margin-top:0.75rem;">S = semana. Prazo total estimado: 8 semanas (2 meses). Adaptável conforme os métodos de valoração escolhidos pelo grupo.</p>
+  </div>
+
+</div>
+
+<script>
+const etapas = [
+  { nome: "Levantamento bibliográfico e planejamento", resp: "Coord. + Biólogo", inicio: 0, dur: 2, cor: "#5DCAA5" },
+  { nome: "Reconhecimento da área (campo)", resp: "Equipe completa", inicio: 1, dur: 2, cor: "#378ADD" },
+  { nome: "Coleta e amostragem de dados", resp: "Biólogos + Técnico", inicio: 2, dur: 3, cor: "#378ADD" },
+  { nome: "Processamento e análise dos dados", resp: "Biólogos + SIG", inicio: 4, dur: 2, cor: "#EF9F27" },
+  { nome: "Mapeamento e geoprocessamento", resp: "Analista SIG", inicio: 3, dur: 3, cor: "#EF9F27" },
+  { nome: "Redação do relatório técnico", resp: "Coord. + Estagiário", inicio: 5, dur: 2, cor: "#7F77DD" },
+  { nome: "Revisão e entrega do produto final", resp: "Biólogo responsável", inicio: 7, dur: 1, cor: "#1D9E75" },
+];
+
+const total = 8;
+const tbody = document.getElementById('crono-body');
+
+etapas.forEach(e => {
+  const tr = document.createElement('tr');
+  let cells = `<td class="etapa-label">${e.nome}</td><td><span class="resp-badge">${e.resp}</span></td>`;
+  for (let s = 0; s < total; s++) {
+    if (s >= e.inicio && s < e.inicio + e.dur) {
+      cells += `<td style="padding:6px 4px;"><div style="background:${e.cor};border-radius:3px;height:10px;"></div></td>`;
+    } else {
+      cells += `<td></td>`;
+    }
+  }
+  tr.innerHTML = cells;
+  tbody.appendChild(tr);
+});
+</script>
