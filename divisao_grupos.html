@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #5a5a5a;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f7f9fa;
+  --color-border-tertiary: #eaeaea;
+  --border-radius-md: 4px;
+  --border-radius-lg: 8px;
+}
+body { font-family: var(--font-sans); background-color: #f0f2f5; display: flex; justify-content: center; }
+.wrapper { padding: 2rem 1.5rem; width: 100%; max-width: 680px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05); min-height: 100vh;}
+
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 1.25rem;
+}
+.section-badge {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; padding: 4px 10px;
+  border-radius: var(--border-radius-md);
+  background: #E1F5EE; color: #0F6E56;
+}
+.badge-b { background: #FFF4E5; color: #B26A00; }
+.badge-c { background: #E5F0FF; color: #0044B2; }
+
+.section-title {
+  font-size: 16px; font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px; margin-bottom: 0.5rem;
+}
+thead tr {
+  background: var(--color-background-secondary);
+}
+th {
+  text-align: left; padding: 8px 10px;
+  font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+th.right, td.right { text-align: right; }
+td {
+  padding: 9px 10px;
+  color: var(--color-text-primary);
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+.subtotal td {
+  background: var(--color-background-secondary);
+  font-weight: 500; color: var(--color-text-primary);
+}
+.total-row td {
+  background: #E1F5EE; color: #085041;
+  font-weight: 500; font-size: 13px;
+}
+.muted { color: var(--color-text-secondary); font-size: 12px; }
+.card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+.divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 2rem 0; }
+.note {
+  font-size: 12px; color: var(--color-text-secondary);
+  margin-top: 0.75rem; line-height: 1.6;
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--color-border-tertiary);
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="section-header">
+    <span class="section-badge">Tema A</span>
+    <span class="section-title">Serviço Cultural</span>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Grupo</th>
+          <th class="right" style="width: 15%;">Nº</th>
+          <th>Nome do(a) Aluno(a)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="5" style="vertical-align: middle; border-bottom: 0.5px solid var(--color-border-tertiary);">
+            <strong>Grupo 3</strong>
+          </td>
+          <td class="right">3</td>
+          <td>Ana Clara</td>
+        </tr>
+        <tr>
+          <td class="right">6</td>
+          <td>Bernardo</td>
+        </tr>
+        <tr>
+          <td class="right">11</td>
+          <td>Francyne</td>
+        </tr>
+        <tr>
+          <td class="right">25</td>
+          <td>Marina</td>
+        </tr>
+        <tr>
+          <td class="right" style="border-bottom: 0.5px solid var(--color-border-tertiary);">29</td>
+          <td style="border-bottom: 0.5px solid var(--color-border-tertiary);">Tais</td>
+        </tr>
+
+        <tr>
+          <td rowspan="6" style="vertical-align: middle;">
+            <strong>Grupo 5</strong>
+          </td>
+          <td class="right">5</td>
+          <td>Ana Luiza</td>
+        </tr>
+        <tr>
+          <td class="right">7</td>
+          <td>Bianca</td>
+        </tr>
+        <tr>
+          <td class="right">10</td>
+          <td>Felipe</td>
+        </tr>
+        <tr>
+          <td class="right">19</td>
+          <td>Laura</td>
+        </tr>
+        <tr>
+          <td class="right">26</td>
+          <td>Nathalia</td>
+        </tr>
+        <tr>
+          <td class="right">32</td>
+          <td>Vitoria</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Total: 11 alunos distribuídos neste tema (1 grupo de 5, 1 grupo de 6).</p>
+  </div>
+
+  <div class="section-header">
+    <span class="section-badge badge-b">Tema B</span>
+    <span class="section-title">Serviço de Provimento</span>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Grupo</th>
+          <th class="right" style="width: 15%;">Nº</th>
+          <th>Nome do(a) Aluno(a)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="5" style="vertical-align: middle; border-bottom: 0.5px solid var(--color-border-tertiary);">
+            <strong>Grupo 1</strong>
+          </td>
+          <td class="right">2</td>
+          <td>Amanda</td>
+        </tr>
+        <tr>
+          <td class="right">8</td>
+          <td>Bruna</td>
+        </tr>
+        <tr>
+          <td class="right">15</td>
+          <td>Kai</td>
+        </tr>
+        <tr>
+          <td class="right">22</td>
+          <td>Luiz Henri</td>
+        </tr>
+        <tr>
+          <td class="right" style="border-bottom: 0.5px solid var(--color-border-tertiary);">31</td>
+          <td style="border-bottom: 0.5px solid var(--color-border-tertiary);">Victor</td>
+        </tr>
+
+        <tr>
+          <td rowspan="6" style="vertical-align: middle;">
+            <strong>Grupo 6</strong>
+          </td>
+          <td class="right">13</td>
+          <td>Janine</td>
+        </tr>
+        <tr>
+          <td class="right">16</td>
+          <td>Karine</td>
+        </tr>
+        <tr>
+          <td class="right">20</td>
+          <td>Leonida</td>
+        </tr>
+        <tr>
+          <td class="right">23</td>
+          <td>Ma. Edu</td>
+        </tr>
+        <tr>
+          <td class="right">24</td>
+          <td>Ma. Isabel</td>
+        </tr>
+        <tr>
+          <td class="right">28</td>
+          <td>Sarah</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Total: 11 alunos distribuídos neste tema (1 grupo de 5, 1 grupo de 6).</p>
+  </div>
+
+  <div class="section-header">
+    <span class="section-badge badge-c">Tema C</span>
+    <span class="section-title">Serviço de Suporte & Regulação</span>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Grupo</th>
+          <th class="right" style="width: 15%;">Nº</th>
+          <th>Nome do(a) Aluno(a)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="5" style="vertical-align: middle; border-bottom: 0.5px solid var(--color-border-tertiary);">
+            <strong>Grupo 2</strong>
+          </td>
+          <td class="right">4</td>
+          <td>Ana Lav</td>
+        </tr>
+        <tr>
+          <td class="right">9</td>
+          <td>Diego</td>
+        </tr>
+        <tr>
+          <td class="right">12</td>
+          <td>Gabriella</td>
+        </tr>
+        <tr>
+          <td class="right">18</td>
+          <td>Laryssa</td>
+        </tr>
+        <tr>
+          <td class="right" style="border-bottom: 0.5px solid var(--color-border-tertiary);">27</td>
+          <td style="border-bottom: 0.5px solid var(--color-border-tertiary);">Pedro</td>
+        </tr>
+
+        <tr>
+          <td rowspan="5" style="vertical-align: middle;">
+            <strong>Grupo 4</strong>
+          </td>
+          <td class="right">1</td>
+          <td>Aline</td>
+        </tr>
+        <tr>
+          <td class="right">14</td>
+          <td>Jessica</td>
+        </tr>
+        <tr>
+          <td class="right">17</td>
+          <td>Laís</td>
+        </tr>
+        <tr>
+          <td class="right">21</td>
+          <td>Luiz Guil</td>
+        </tr>
+        <tr>
+          <td class="right">30</td>
+          <td>Thaises</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Total: 10 alunos distribuídos neste tema (2 grupos de 5).</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="card" style="margin-bottom:2rem;">
+    <table>
+      <thead>
+        <tr><th colspan="2">Resumo Geral da Divisão</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Tema A — Serviço Cultural<br>
+            <span class="muted">Grupos 3 e 5</span>
+          </td>
+          <td class="right" style="vertical-align: middle;">11 alunos</td>
+        </tr>
+        <tr>
+          <td>
+            Tema B — Serviço de Provimento<br>
+            <span class="muted">Grupos 1 e 6</span>
+          </td>
+          <td class="right" style="vertical-align: middle;">11 alunos</td>
+        </tr>
+        <tr>
+          <td>
+            Tema C — Serviço de Suporte & Regulação<br>
+            <span class="muted">Grupos 2 e 4</span>
+          </td>
+          <td class="right" style="vertical-align: middle;">10 alunos</td>
+        </tr>
+        <tr class="total-row">
+          <td>Total da Turma</td>
+          <td class="right">32 alunos</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>
