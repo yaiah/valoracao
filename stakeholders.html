@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Definição de Stakeholders — Valoração de Serviços Ecossistêmicos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F0F4F8;
+    --surface: #FFFFFF;
+    --surface-2: #F8FAFC;
+    --text: #1E293B;
+    --text-secondary: #64748B;
+    --text-muted: #94A3B8;
+    --border: #E2E8F0;
+    --primary: #2563EB;
+    --primary-light: #DBEAFE;
+    --primary-dark: #1D4ED8;
+    --secondary: #059669;
+    --secondary-light: #D1FAE5;
+    --accent: #F59E0B;
+    --accent-light: #FEF3C7;
+    --rose: #E11D48;
+    --rose-light: #FFE4E6;
+    --violet: #7C3AED;
+    --violet-light: #EDE9FE;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 20px rgba(0,0,0,0.04);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 30%, #2563EB 72%, #059669 100%);
+    color: white;
+    padding: 5rem 1.5rem 6.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(37,99,235,0.28) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(5,150,105,0.22) 0%, transparent 50%),
+      radial-gradient(circle at 50% 55%, rgba(245,158,11,0.10) 0%, transparent 36%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 86px;
+    background: var(--bg);
+    clip-path: ellipse(60% 100% at 50% 100%);
+  }
+  .hero-inner {
+    max-width: 920px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.88);
+    background: rgba(255,255,255,.10);
+    backdrop-filter: blur(10px);
+    padding: 8px 18px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,.14);
+    margin-bottom: 1.4rem;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #34D399;
+    box-shadow: 0 0 0 6px rgba(52,211,153,.14);
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 20px rgba(0,0,0,.22);
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, #93C5FD 0%, #6EE7B7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    max-width: 720px;
+    margin: 0 auto 2rem;
+    font-size: 1.02rem;
+    color: rgba(255,255,255,.86);
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .stat {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px;
+    padding: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .stat-num {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: .4rem;
+  }
+  .stat-label {
+    font-size: .74rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.74);
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: -2rem auto 0;
+    padding: 0 1.25rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .quick-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .quick-nav a {
+    text-decoration: none;
+    color: var(--primary-dark);
+    background: rgba(255,255,255,.88);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: .75rem 1rem;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+  }
+
+  .section {
+    background: var(--surface);
+    border: 1px solid rgba(226,232,240,.9);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1rem;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--primary-dark);
+    background: var(--primary-light);
+    border-radius: 999px;
+    padding: .35rem .75rem;
+  }
+  h2 {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    line-height: 1.15;
+    letter-spacing: -.02em;
+  }
+  h3 {
+    font-size: 1.08rem;
+    margin-bottom: .6rem;
+    line-height: 1.3;
+  }
+  p + p { margin-top: .9rem; }
+  .muted { color: var(--text-secondary); }
+
+  .grid-2, .grid-3 {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+
+  .card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.2rem;
+  }
+  .card.blue { background: linear-gradient(180deg, #F8FBFF 0%, #F2F7FF 100%); }
+  .card.green { background: linear-gradient(180deg, #F4FFFA 0%, #EEFBF5 100%); }
+  .card.amber { background: linear-gradient(180deg, #FFFDF5 0%, #FFF8E7 100%); }
+  .card.rose { background: linear-gradient(180deg, #FFF7F8 0%, #FFF0F3 100%); }
+  .card.violet { background: linear-gradient(180deg, #FAF8FF 0%, #F4F0FF 100%); }
+
+  .icon {
+    width: 42px;
+    height: 42px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 14px;
+    font-weight: 800;
+    margin-bottom: .8rem;
+  }
+  .icon.blue { background: var(--primary-light); color: var(--primary-dark); }
+  .icon.green { background: var(--secondary-light); color: var(--secondary); }
+  .icon.amber { background: var(--accent-light); color: var(--accent); }
+  .icon.rose { background: var(--rose-light); color: var(--rose); }
+  .icon.violet { background: var(--violet-light); color: var(--violet); }
+
+  .note {
+    border-left: 4px solid var(--primary);
+    background: #F8FBFF;
+    border-radius: 14px;
+    padding: 1rem 1rem 1rem 1.1rem;
+    margin-top: 1rem;
+  }
+
+  .activity-box {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    color: white;
+    border-radius: 22px;
+    padding: 1.6rem;
+    margin-top: 1.25rem;
+  }
+  .activity-box p { color: rgba(255,255,255,.82); }
+
+  ol.steps {
+    margin: 1rem 0 0 1.25rem;
+  }
+  ol.steps li { margin-bottom: .85rem; padding-left: .25rem; }
+
+  ul.clean {
+    margin: .75rem 0 0 1.1rem;
+  }
+  ul.clean li { margin-bottom: .65rem; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  th, td {
+    text-align: left;
+    padding: .95rem .9rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #F8FAFC;
+    font-size: .84rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-secondary);
+  }
+  tr:last-child td { border-bottom: none; }
+
+  .deliverable {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 1rem;
+    margin-top: 1.2rem;
+  }
+  .pill {
+    display: inline-block;
+    padding: .3rem .65rem;
+    border-radius: 999px;
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+  .pill.blue { color: var(--primary-dark); background: var(--primary-light); }
+  .pill.green { color: var(--secondary-dark); background: var(--secondary-light); }
+  .pill.amber { color: #92400E; background: var(--accent-light); }
+
+  .footer-note {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: .95rem;
+    padding: 1rem 0 0;
+  }
+
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .deliverable, .hero-stats { grid-template-columns: 1fr; }
+    .section { padding: 1.4rem; }
+    .container { padding: 0 1rem 3rem; }
+  }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">PUC Minas · Projetos em Ciências Ambientais</div>
+      <h1>Definição de <span>Stakeholders</span></h1>
+      <p class="hero-sub">Página de apoio para orientar a identificação das partes interessadas na valoração de serviços ecossistêmicos e transformar essa etapa em uma entrega objetiva para cada grupo da disciplina.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">1</span>
+          <span class="stat-label">Etapa metodológica</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">6</span>
+          <span class="stat-label">Grupos de trabalho</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Tipos de serviços</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="quick-nav" aria-label="Navegação rápida">
+      <a href="#conceito">Conceito</a>
+      <a href="#importancia">Por que identificar</a>
+      <a href="#categorias">Categorias</a>
+      <a href="#atividade">Atividade do grupo</a>
+      <a href="#entrega">Entrega esperada</a>
+    </nav>
+
+    <section class="section" id="conceito">
+      <div class="section-title">
+        <span class="eyebrow">Conceito</span>
+      </div>
+      <h2>Quem são os stakeholders?</h2>
+      <p>Stakeholders, ou partes interessadas, são os atores sociais, econômicos e institucionais que influenciam, dependem, utilizam, regulam ou são afetados pelos serviços ecossistêmicos presentes em uma paisagem.</p>
+      <p class="muted">Na valoração de serviços ecossistêmicos, eles não são apenas “participantes” do estudo: são grupos que ajudam a revelar quem recebe benefícios, quem suporta perdas, quem interfere nas decisões e quem precisa ser considerado na análise.</p>
+
+      <div class="grid-3">
+        <article class="card blue">
+          <div class="icon blue">1</div>
+          <h3>Beneficiários</h3>
+          <p>Quem recebe direta ou indiretamente os benefícios do serviço, como água, alimentos, regulação climática, paisagem ou lazer.</p>
+        </article>
+        <article class="card green">
+          <div class="icon green">2</div>
+          <h3>Usuários e manejadores</h3>
+          <p>Quem utiliza, maneja, conserva ou transforma o ambiente, influenciando a manutenção ou a perda do serviço.</p>
+        </article>
+        <article class="card amber">
+          <div class="icon amber">3</div>
+          <h3>Tomadores de decisão</h3>
+          <p>Quem regula, fiscaliza, financia, autoriza ou media conflitos relacionados ao uso do território e dos recursos.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="importancia">
+      <div class="section-title">
+        <span class="eyebrow">Valoração</span>
+      </div>
+      <h2>Por que a identificação de stakeholders é necessária?</h2>
+      <p>Os serviços ecossistêmicos não possuem um único valor. O valor atribuído a um serviço muda conforme o grupo considerado, o tipo de uso, a escala espacial, a dependência socioeconômica e a percepção de risco ou benefício.</p>
+      <div class="grid-2">
+        <article class="card rose">
+          <div class="icon rose">A</div>
+          <h3>Evita generalizações</h3>
+          <p>Um mesmo serviço pode ser crucial para um grupo local e quase invisível para outro. A identificação dos stakeholders ajuda a não tratar a paisagem como se todos tivessem os mesmos interesses.</p>
+        </article>
+        <article class="card violet">
+          <div class="icon violet">B</div>
+          <h3>Revela conflitos e prioridades</h3>
+          <p>Essa etapa permite reconhecer disputas de uso, desigualdades na distribuição dos benefícios e diferenças entre quem conserva, quem utiliza e quem é impactado.</p>
+        </article>
+      </div>
+      <div class="note">
+        <strong>Em termos práticos:</strong> antes de valorar um serviço, o grupo precisa responder quem depende dele, quem o utiliza, quem o altera, quem o regula e quem teria perdas caso ele fosse reduzido.
+      </div>
+    </section>
+
+    <section class="section" id="categorias">
+      <div class="section-title">
+        <span class="eyebrow">Aplicação</span>
+      </div>
+      <h2>Categorias que podem ser consideradas pelos grupos</h2>
+      <p>Nem todos os grupos vão usar exatamente os mesmos stakeholders, porque isso depende do serviço ecossistêmico em análise. Ainda assim, as categorias abaixo funcionam como ponto de partida para o reconhecimento inicial.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Exemplos</th>
+            <th>Pergunta orientadora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Comunidades locais</strong></td>
+            <td>Moradores do entorno, trabalhadores locais, usuários cotidianos da área</td>
+            <td>Quem depende do ambiente no dia a dia?</td>
+          </tr>
+          <tr>
+            <td><strong>Produtores e usuários diretos</strong></td>
+            <td>Agropecuária, extrativismo, uso da água, uso do solo, visitação</td>
+            <td>Quem usa diretamente o recurso ou o serviço?</td>
+          </tr>
+          <tr>
+            <td><strong>Instituições públicas</strong></td>
+            <td>Prefeitura, órgãos ambientais, gestão territorial, fiscalização</td>
+            <td>Quem regula, autoriza ou fiscaliza?</td>
+          </tr>
+          <tr>
+            <td><strong>Setor científico e educacional</strong></td>
+            <td>Universidade, pesquisadores, projetos de extensão, escolas</td>
+            <td>Quem produz conhecimento ou usa a área para ensino e pesquisa?</td>
+          </tr>
+          <tr>
+            <td><strong>Setor privado e organizações</strong></td>
+            <td>Empresas, consultorias, ONGs, associações, cooperativas</td>
+            <td>Quem tem interesse econômico, institucional ou político no serviço?</td>
+          </tr>
+          <tr>
+            <td><strong>Beneficiários indiretos</strong></td>
+            <td>População urbana, consumidores, usuários de água a jusante, visitantes</td>
+            <td>Quem recebe benefícios mesmo sem estar presente na área?</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section" id="atividade">
+      <div class="section-title">
+        <span class="eyebrow">Atividade</span>
+      </div>
+      <h2>O que cada grupo deve fazer</h2>
+      <p>De acordo com a organização da atividade da disciplina, os grupos estão distribuídos entre os temas de <strong>provisionamento</strong>, <strong>regulação</strong> e <strong>culturais</strong>. Nesta etapa, cada equipe deverá identificar os stakeholders relacionados ao tipo de serviço ecossistêmico com o qual está trabalhando.</p>
+
+      <div class="activity-box">
+        <h3>Orientação da tarefa</h3>
+        <p>Considerando o serviço ecossistêmico focal do grupo, elaborem uma identificação preliminar dos stakeholders da área de estudo. O objetivo não é apenas listar nomes genéricos, mas relacionar os atores à função que exercem em relação ao serviço analisado.</p>
+      </div>
+
+      <ol class="steps">
+        <li><strong>Definam o serviço ecossistêmico focal</strong> do grupo com o maior nível possível de especificidade, por exemplo: abastecimento de água, polinização, controle de erosão, valor paisagístico, recreação, educação ambiental ou outro equivalente.</li>
+        <li><strong>Listem os atores envolvidos</strong>, distinguindo beneficiários diretos, beneficiários indiretos, grupos que manejam ou alteram a paisagem e instituições que regulam ou influenciam o uso do território.</li>
+        <li><strong>Justifiquem a presença de cada stakeholder</strong> com uma frase curta, explicando por que esse ator é relevante para o serviço estudado.</li>
+        <li><strong>Classifiquem o tipo de relação</strong> de cada stakeholder com o serviço: beneficia-se, utiliza, regula, impacta, conserva, financia, pesquisa, decide ou sofre consequências da perda do serviço.</li>
+        <li><strong>Indiquem a escala da relação</strong>, quando possível: local, entorno, municipal, regional ou indireta.</li>
+      </ol>
+
+      <div class="note">
+        <strong>Atenção:</strong> a identificação deve estar coerente com a área de estudo da Fazenda Experimental da PUC Minas e com a lógica geral do trabalho, que envolve justificativa, reconhecimento remoto, procedimentos de campo, análise técnica e elaboração do produto final.
+      </div>
+    </section>
+
+    <section class="section" id="entrega">
+      <div class="section-title">
+        <span class="eyebrow">Produto</span>
+      </div>
+      <h2>Como a equipe deve apresentar essa etapa</h2>
+      <p>O ideal é que o grupo apresente os stakeholders de forma organizada, objetiva e já conectada ao serviço ecossistêmico em análise. Abaixo está um modelo simples que pode ser incorporado à proposta técnica ou ao relatório do grupo.</p>
+
+      <div class="deliverable">
+        <article class="card blue">
+          <span class="pill blue">Modelo recomendado</span>
+          <table>
+            <thead>
+              <tr>
+                <th>Stakeholder</th>
+                <th>Tipo de relação</th>
+                <th>Justificativa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ex.: moradores do entorno</td>
+                <td>Beneficiários diretos</td>
+                <td>Dependem do serviço para uso cotidiano ou qualidade ambiental.</td>
+              </tr>
+              <tr>
+                <td>Ex.: gestores públicos</td>
+                <td>Regulam e decidem</td>
+                <td>Influenciam normas, autorização de uso e proteção do território.</td>
+              </tr>
+              <tr>
+                <td>Ex.: produtores rurais</td>
+                <td>Usuários e impactantes</td>
+                <td>Podem se beneficiar do serviço e, ao mesmo tempo, alterá-lo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="card green">
+          <span class="pill green">Checklist da equipe</span>
+          <ul class="clean">
+            <li>O stakeholder está ligado ao serviço focal do grupo?</li>
+            <li>A justificativa está clara e objetiva?</li>
+            <li>Há distinção entre beneficiários, usuários e reguladores?</li>
+            <li>O grupo evitou listas genéricas sem relação com a área?</li>
+            <li>A identificação ajuda a etapa posterior de valoração?</li>
+          </ul>
+          <div style="height:1rem"></div>
+          <span class="pill amber">Sugestão</span>
+          <p style="margin-top:.7rem">Quando houver dúvida, prefiram menos stakeholders, mas melhor justificados, em vez de uma lista longa e pouco relacionada ao serviço analisado.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <span class="eyebrow">Perguntas-guia</span>
+      </div>
+      <h2>Perguntas que podem orientar a discussão do grupo</h2>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Para serviços de provisionamento</h3>
+          <ul class="clean">
+            <li>Quem consome, coleta, produz ou depende diretamente desse recurso?</li>
+            <li>Quem pode ter perda econômica ou funcional se esse serviço diminuir?</li>
+            <li>Quem controla o acesso ou a disponibilidade do recurso?</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Para serviços de regulação</h3>
+          <ul class="clean">
+            <li>Quem se beneficia da redução de riscos ou da estabilidade ambiental?</li>
+            <li>Quem altera os processos ecológicos que sustentam esse serviço?</li>
+            <li>Quais atores públicos ou privados interferem na manutenção desse processo?</li>
+          </ul>
+        </article>
+      </div>
+      <div class="grid-2" style="margin-top:1rem">
+        <article class="card">
+          <h3>Para serviços culturais</h3>
+          <ul class="clean">
+            <li>Quem atribui valor simbólico, paisagístico, recreativo ou educacional à área?</li>
+            <li>Quem usa o local para visitação, contemplação, ensino ou pesquisa?</li>
+            <li>Quem seria afetado se esse valor cultural ou educacional fosse perdido?</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Resultado esperado</h3>
+          <p>Ao final, o grupo deve demonstrar que compreendeu não apenas qual serviço ecossistêmico está analisando, mas também <strong>para quem</strong> esse serviço importa, <strong>como</strong> ele é utilizado e <strong>quais atores</strong> devem ser considerados na valoração.</p>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer-note">Página de apoio didático para a atividade de valoração de serviços ecossistêmicos — Fazenda Experimental da PUC Minas.</p>
+  </main>
+</body>
+</html>
