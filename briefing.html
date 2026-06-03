@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing — Instruções aos Alunos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F0F4F8;
+    --surface: #FFFFFF;
+    --text: #1E293B;
+    --text-secondary: #64748B;
+    --text-muted: #94A3B8;
+    --border: #E2E8F0;
+    --primary: #2563EB;
+    --primary-light: #DBEAFE;
+    --primary-dark: #1D4ED8;
+    --secondary: #059669;
+    --secondary-light: #D1FAE5;
+    --secondary-dark: #047857;
+    --accent: #F59E0B;
+    --accent-light: #FEF3C7;
+    --accent-dark: #D97706;
+    --rose: #E11D48;
+    --rose-light: #FFE4E6;
+    --violet: #7C3AED;
+    --violet-light: #EDE9FE;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 20px rgba(0,0,0,0.04);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.08);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 30%, #2563EB 70%, #059669 100%);
+    color: white;
+    padding: 5rem 1.5rem 7rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(37,99,235,0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(5,150,105,0.25) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(245,158,11,0.1) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 80px;
+    background: var(--bg);
+    clip-path: ellipse(60% 100% at 50% 100%);
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 860px; margin: 0 auto; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 8px 20px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.15);
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #34D399;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+  .hero h1 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    letter-spacing: -0.02em;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, #60A5FA 0%, #34D399 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 400;
+    opacity: 0.88;
+    max-width: 760px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: 2.2rem;
+    font-weight: 800;
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-top: 6px;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.25rem 4rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .quick-access {
+    margin-top: -3rem;
+    margin-bottom: 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+  .quick-card {
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .quick-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    transition: height 0.35s ease;
+  }
+  .quick-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); }
+  .quick-card:hover::before { height: 6px; }
+  .quick-card.c1::before { background: linear-gradient(90deg, var(--primary), var(--primary-dark)); }
+  .quick-card.c2::before { background: linear-gradient(90deg, var(--secondary), var(--secondary-dark)); }
+  .quick-card.c3::before { background: linear-gradient(90deg, var(--accent), var(--accent-dark)); }
+  .quick-card.c4::before { background: linear-gradient(90deg, var(--violet), var(--rose)); }
+  .quick-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .quick-card.c1 .quick-icon { background: var(--primary-light); }
+  .quick-card.c2 .quick-icon { background: var(--secondary-light); }
+  .quick-card.c3 .quick-icon { background: var(--accent-light); }
+  .quick-card.c4 .quick-icon { background: var(--violet-light); }
+  .quick-title { font-size: 16px; font-weight: 700; color: var(--text); }
+  .quick-desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; flex: 1; }
+  .quick-arrow { font-size: 13px; font-weight: 600; color: var(--primary); }
+
+  .section-block { margin-bottom: 3rem; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .section-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+  }
+  .badge-info { background: var(--primary-light); color: var(--primary-dark); }
+  .badge-team { background: var(--secondary-light); color: var(--secondary-dark); }
+  .badge-doc { background: var(--accent-light); color: var(--accent-dark); }
+  .badge-alert { background: var(--rose-light); color: var(--rose); }
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .instruction-box, .highlight-box, .alert-box, .card, .table-wrap {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .instruction-box, .highlight-box, .alert-box, .card { padding: 1.5rem; }
+  .instruction-box {
+    background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(5,150,105,0.08));
+    border-color: rgba(37,99,235,0.16);
+  }
+  .alert-box {
+    background: #FFF7ED;
+    border-color: #FED7AA;
+  }
+  .instruction-box h3, .highlight-box h3, .alert-box h3, .card h3 {
+    font-size: 1.08rem;
+    margin-bottom: 0.65rem;
+    font-weight: 800;
+  }
+  .instruction-box p, .highlight-box p, .alert-box p, .card p,
+  .instruction-box li, .highlight-box li, .alert-box li, .card li {
+    color: var(--text-secondary);
+  }
+  .instruction-box ul, .instruction-box ol,
+  .highlight-box ul, .highlight-box ol,
+  .alert-box ul, .alert-box ol,
+  .card ul, .card ol { margin-left: 1.1rem; }
+
+  .grid-2, .grid-3, .steps-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .steps-grid { grid-template-columns: repeat(5, 1fr); }
+
+  .step-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+  .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+  }
+  .step-card h3 { font-size: 1rem; margin-bottom: 0.55rem; }
+  .step-card p { color: var(--text-secondary); font-size: 14px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+  }
+  .table-wrap { overflow: hidden; }
+  th, td {
+    padding: 0.95rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    background: #F8FAFC;
+  }
+  tr:last-child td { border-bottom: none; }
+  td { color: var(--text-secondary); }
+
+  .footer-note {
+    margin-top: 2.5rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  @media (max-width: 1040px) {
+    .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .hero { padding: 4rem 1rem 6rem; }
+    .hero h1 { font-size: 2.3rem; }
+    .hero-sub { font-size: 15px; }
+    .grid-2, .quick-access, .steps-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 1rem 3rem; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">PUC Minas · Instruções para a atividade de campo</div>
+      <h1>Briefing <span>dos Grupos</span></h1>
+      <p class="hero-sub">Leiam esta página antes da ida a campo. O objetivo do briefing é garantir que cada grupo chegue à Fazenda Experimental com funções definidas, pontos de interesse escolhidos, materiais organizados e um plano claro para observar, registrar e interpretar a paisagem.</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Funções básicas</span></div>
+        <div class="stat"><span class="stat-num">10 min</span><span class="stat-label">Cota de drone</span></div>
+        <div class="stat"><span class="stat-num">1</span><span class="stat-label">Plano por grupo</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="quick-access">
+      <a class="quick-card c1" href="#antes">
+        <div class="quick-icon">✅</div>
+        <div class="quick-title">O que vocês devem definir</div>
+        <div class="quick-desc">Antes de sair para o campo, o grupo precisa resolver papéis, waypoints, materiais e forma de registro. </div>
+        <div class="quick-arrow">Ler agora →</div>
+      </a>
+      <a class="quick-card c2" href="#registro">
+        <div class="quick-icon">📝</div>
+        <div class="quick-title">Como registrar</div>
+        <div class="quick-desc">O relator deve anotar a estrutura biofísica observada e relacioná-la aos stakeholders. </div>
+        <div class="quick-arrow">Ler agora →</div>
+      </a>
+      <a class="quick-card c3" href="#drone">
+        <div class="quick-icon">🚁</div>
+        <div class="quick-title">Uso do drone</div>
+        <div class="quick-desc">A missão deve ser planejada antes do campo, com foco e waypoints definidos. </div>
+        <div class="quick-arrow">Ler agora →</div>
+      </a>
+      <a class="quick-card c4" href="#eixos">
+        <div class="quick-icon">🌿</div>
+        <div class="quick-title">Procedimentos por tema</div>
+        <div class="quick-desc">Cada grupo deve seguir orientações compatíveis com seu eixo de serviço ecossistêmico. </div>
+        <div class="quick-arrow">Ler agora →</div>
+      </a>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <span class="section-badge badge-info">Leitura inicial</span>
+        <h2 class="section-title">O que vocês precisam entender antes de ir a campo</h2>
+      </div>
+      <div class="instruction-box">
+        <h3>Objetivo do trabalho</h3>
+        <p>O objetivo principal da atividade de campo é treinar o olhar para traduzir a paisagem. Vocês devem compreender que o serviço ecossistêmico não existe sem a estrutura biofísica, que inclui tanto o capital natural quanto o capital humano, e que os benefícios atingem stakeholders específicos. </p>
+      </div>
+    </section>
+
+    <section class="section-block" id="antes">
+      <div class="section-header">
+        <span class="section-badge badge-doc">Antes do campo</span>
+        <h2 class="section-title">O que o grupo deve sair sabendo e levando</h2>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card">
+          <div class="step-num">1</div>
+          <h3>Definam os papéis</h3>
+          <p>Escolham quem será o navegador, quem será o relator e quem será o documentarista fotográfico. </p>
+        </article>
+        <article class="step-card">
+          <div class="step-num">2</div>
+          <h3>Escolham os waypoints</h3>
+          <p>Marquem no mapa pontos acessíveis e que desejam visitar, usando o reconhecimento remoto feito em sala. </p>
+        </article>
+        <article class="step-card">
+          <div class="step-num">3</div>
+          <h3>Confiram os materiais</h3>
+          <p>Decidam quais materiais serão usados no campo e façam a solicitação do que for necessário. </p>
+        </article>
+        <article class="step-card">
+          <div class="step-num">4</div>
+          <h3>Planejem o registro</h3>
+          <p>Combinem como serão feitas as anotações, fotos, georreferenciamento e o registro dos stakeholders. </p>
+        </article>
+        <article class="step-card">
+          <div class="step-num">5</div>
+          <h3>Desenhem o voo</h3>
+          <p>Se houver uso de drone, o grupo já deve sair com a missão definida antes da ida a campo. </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <span class="section-badge badge-team">Papéis</span>
+        <h2 class="section-title">Quem fará o quê no grupo</h2>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Navegador</h3>
+          <p>É a pessoa responsável por operar o GPS ou o celular, orientando o deslocamento do grupo com base nos limites do arquivo “fazexpuc(1).kml”. </p>
+        </article>
+        <article class="card">
+          <h3>Relator</h3>
+          <p>É a pessoa responsável por registrar os dados observados, organizar as anotações e preencher a caderneta ou planilha de campo. </p>
+        </article>
+        <article class="card">
+          <h3>Documentarista fotográfico</h3>
+          <p>É a pessoa responsável por produzir o registro visual da estrutura biofísica, dos pontos visitados e das evidências observadas em campo. </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <span class="section-badge badge-info">Materiais</span>
+        <h2 class="section-title">Checklist mínimo para todos os grupos</h2>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Levarem ou providenciarem</h3>
+          <ul>
+            <li>Smartphones com aplicativos de mapeamento, como Google Earth e QField, ou GPS. </li>
+            <li>Câmeras fotográficas ou celulares para registro visual da estrutura biofísica. </li>
+            <li>Caderneta de campo ou planilhas impressas e lápis. </li>
+            <li>Aplicativos de identificação, como iNaturalist e PlantNet. </li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Antes da saída</h3>
+          <p>O grupo deve decidir o que realmente será utilizado e solicitar previamente os materiais necessários para o campo. Não deixem isso para o dia da visita. </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block" id="registro">
+      <div class="section-header">
+        <span class="section-badge badge-doc">Registro</span>
+        <h2 class="section-title">Como vocês devem registrar as observações</h2>
+      </div>
+      <div class="instruction-box">
+        <h3>Regra de anotação do grupo</h3>
+        <p>Os relatores devem registrar na caderneta de campo os elementos da estrutura biofísica observados na fazenda, por exemplo “mata ciliar da APP” ou “trilha ecológica”. Ao fazer esse registro, o grupo deve tentar responder à seguinte pergunta: <strong>“Quem ganha com isso hoje aqui na região?”</strong> </p>
+      </div>
+      <div class="table-wrap" style="margin-top:1.25rem;">
+        <table>
+          <thead>
+            <tr>
+              <th>O que observar</th>
+              <th>Como registrar</th>
+              <th>Pergunta associada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Elemento da estrutura biofísica</td>
+              <td>Nomear o elemento e descrever o ponto observado. </td>
+              <td>O que esse elemento sustenta ou favorece? </td>
+            </tr>
+            <tr>
+              <td>Serviço ecossistêmico relacionado</td>
+              <td>Relacionar o ponto ao serviço em análise do grupo. </td>
+              <td>Que benefício essa estrutura pode gerar? </td>
+            </tr>
+            <tr>
+              <td>Stakeholders</td>
+              <td>Anotar quem se beneficia, usa ou depende daquele elemento. </td>
+              <td>Quem ganha com isso hoje aqui na região? </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section-block" id="drone">
+      <div class="section-header">
+        <span class="section-badge badge-alert">Drone</span>
+        <h2 class="section-title">Instruções obrigatórias para o uso do drone</h2>
+      </div>
+      <div class="grid-2">
+        <article class="alert-box">
+          <h3>Cota de voo do grupo</h3>
+          <p>Cada grupo terá 10 minutos de voo. O plano deve prever de 7 a 8 minutos de registro efetivo, deixando os minutos finais para retorno e pouso seguro. </p>
+          <ul>
+            <li>O tempo vale apenas com o drone no ar gravando. </li>
+            <li>Vocês não podem usar a cota para decidir o que vão filmar. </li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>O que vocês devem fazer hoje</h3>
+          <p>Planejem uma missão contínua de 8 minutos e selecionem os waypoints que serão inspecionados no voo para poupar bateria. Ao final do briefing, o grupo deve sair com um plano de voo desenhado, por exemplo: ponto de decolagem, altura, direção, alvo principal e deslocamento final. </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block" id="eixos">
+      <div class="section-header">
+        <span class="section-badge badge-team">Temas</span>
+        <h2 class="section-title">O que cada tipo de grupo deve observar</h2>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Grupos de suporte e regulação</h3>
+          <p>A atividade do grupo é avaliar a qualidade do habitat, observar interações ecológicas e mapear cobertura vegetal, permeabilidade do solo e áreas de preservação permanente. </p>
+          <ul>
+            <li>Façam pontos de escuta e observação em transectos curtos para registrar polinizadores e dispersores. </li>
+            <li>Avaliem a complexidade estrutural do ambiente, como serapilheira, troncos caídos e diferentes estratos vegetais. </li>
+            <li>Fotografem áreas de mata com dossel, pastagem e solo exposto. </li>
+            <li>Observem margens de corpos d’água, microclimas, encostas e áreas abertas. </li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Grupos de provisão</h3>
+          <p>A atividade do grupo é inventariar espécies produtivas e estruturas com potencial de uso econômico ou medicinal. </p>
+          <ul>
+            <li>Mapeiem zonas de cultivo ativo, pastagem ou silvicultura dentro dos limites da fazenda. </li>
+            <li>Identifiquem produtos florestais não madeireiros, como frutos, sementes e plantas medicinais. </li>
+            <li>Estimem visualmente densidade ou área ocupada por essas estruturas provedoras. </li>
+            <li>Registrem também estruturas construídas, como currais, estradas internas, laboratórios e cercas. </li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Grupos de serviços culturais</h3>
+          <p>A atividade do grupo é avaliar o potencial paisagístico e a infraestrutura voltada ao conhecimento. </p>
+          <ul>
+            <li>Identifiquem e georreferenciem pontos de interesse cênico, trilhas e infraestruturas históricas ou de pesquisa. </li>
+            <li>Documentem áreas utilizadas para aulas práticas ou parcelas de monitoramento de longo prazo. </li>
+            <li>Apliquem um formulário rápido, em role-play ou com funcionários locais, sobre percepção estética da paisagem. </li>
+            <li>Registrem também estruturas construídas, como currais, estradas internas, laboratórios e cercas. </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <span class="section-badge badge-doc">Conferência</span>
+        <h2 class="section-title">Checklist final do grupo</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Vocês já...</th>
+              <th>Confirmação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Definiram navegador, relator e documentarista?</td>
+              <td>Sim / Não </td>
+            </tr>
+            <tr>
+              <td>Marcaram os waypoints de interesse no mapa?</td>
+              <td>Sim / Não </td>
+            </tr>
+            <tr>
+              <td>Conferiram os materiais e pediram o que falta?</td>
+              <td>Sim / Não </td>
+            </tr>
+            <tr>
+              <td>Combinaram como serão feitos os registros em campo?</td>
+              <td>Sim / Não </td>
+            </tr>
+            <tr>
+              <td>Planejaram a missão do drone, se aplicável?</td>
+              <td>Sim / Não </td>
+            </tr>
+            <tr>
+              <td>Sabem o que observar de acordo com o tema do grupo?</td>
+              <td>Sim / Não </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="footer-note">Página instrucional elaborada para orientar o briefing dos alunos antes da atividade de campo. </p>
+  </main>
+</body>
+</html>
