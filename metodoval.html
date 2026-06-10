@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valoração — Proposição do Método</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F0F4F8;
+    --surface: #FFFFFF;
+    --text: #1E293B;
+    --text-secondary: #64748B;
+    --text-muted: #94A3B8;
+    --border: #E2E8F0;
+    --primary: #2563EB;
+    --primary-light: #DBEAFE;
+    --primary-dark: #1D4ED8;
+    --secondary: #059669;
+    --secondary-light: #D1FAE5;
+    --secondary-dark: #047857;
+    --accent: #F59E0B;
+    --accent-light: #FEF3C7;
+    --accent-dark: #D97706;
+    --rose: #E11D48;
+    --rose-light: #FFE4E6;
+    --violet: #7C3AED;
+    --violet-light: #EDE9FE;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 20px rgba(0,0,0,0.04);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.08);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  .hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 30%, #2563EB 70%, #059669 100%);
+    color: white;
+    padding: 5rem 1.5rem 7rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(37,99,235,0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(5,150,105,0.25) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(245,158,11,0.1) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 80px;
+    background: var(--bg);
+    clip-path: ellipse(60% 100% at 50% 100%);
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 920px; margin: 0 auto; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 8px 20px;
+    border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); margin-bottom: 1.5rem;
+  }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #34D399; }
+  .hero h1 { font-size: 3.2rem; font-weight: 900; line-height: 1.1; margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .hero h1 span {
+    background: linear-gradient(135deg, #60A5FA 0%, #34D399 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub { font-size: 17px; opacity: 0.88; max-width: 780px; margin: 0 auto 2rem; color: rgba(255,255,255,0.85) }
+  .hero-stats { display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 2.2rem; font-weight: 800; display: block; line-height: 1; }
+  .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; margin-top: 6px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem 4rem; position: relative; z-index: 2; }
+  .quick-access {
+    margin-top: -3rem; margin-bottom: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem;
+  }
+  .quick-card {
+    background: var(--surface); border-radius: var(--radius-sm); padding: 1.75rem; box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border); text-decoration: none; color: inherit; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; gap: 0.75rem; transition: all .3s ease;
+  }
+  .quick-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); }
+  .quick-card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; }
+  .quick-card.c1::before { background: linear-gradient(90deg, var(--primary), var(--primary-dark)); }
+  .quick-card.c2::before { background: linear-gradient(90deg, var(--secondary), var(--secondary-dark)); }
+  .quick-card.c3::before { background: linear-gradient(90deg, var(--accent), var(--accent-dark)); }
+  .quick-card.c4::before { background: linear-gradient(90deg, var(--violet), var(--rose)); }
+  .quick-icon { width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:22px; }
+  .quick-card.c1 .quick-icon { background: var(--primary-light); }
+  .quick-card.c2 .quick-icon { background: var(--secondary-light); }
+  .quick-card.c3 .quick-icon { background: var(--accent-light); }
+  .quick-card.c4 .quick-icon { background: var(--violet-light); }
+  .quick-title { font-size: 16px; font-weight: 700; }
+  .quick-desc { font-size: 13.5px; color: var(--text-secondary); }
+  .quick-arrow { font-size: 13px; font-weight: 600; color: var(--primary); }
+  .section-block { margin-bottom: 3rem; }
+  .section-header { display:flex; align-items:center; gap:12px; margin-bottom:1.5rem; flex-wrap: wrap; }
+  .section-badge { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:5px 14px; border-radius:100px; }
+  .badge-info { background: var(--primary-light); color: var(--primary-dark); }
+  .badge-team { background: var(--secondary-light); color: var(--secondary-dark); }
+  .badge-doc { background: var(--accent-light); color: var(--accent-dark); }
+  .badge-videos { background: var(--violet-light); color: var(--violet); }
+  .section-title { font-size:1.5rem; font-weight:800; letter-spacing:-0.01em; }
+  .instruction-box, .card, .table-wrap {
+    background: var(--surface); border-radius: var(--radius); border:1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .instruction-box, .card { padding:1.5rem; }
+  .instruction-box {
+    background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(5,150,105,0.08));
+    border-color: rgba(37,99,235,0.16);
+  }
+  .grid-2, .grid-3, .steps-grid, .videos-grid { display:grid; gap:1.25rem; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .steps-grid { grid-template-columns: repeat(4, 1fr); }
+  .videos-grid { grid-template-columns: repeat(2, 1fr); }
+  .step-card, .video-card {
+    background: var(--surface); border:1px solid var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow); overflow: hidden;
+  }
+  .step-card { padding:1.25rem; }
+  .step-num {
+    width:36px; height:36px; border-radius:12px; display:grid; place-items:center; background:var(--primary-light); color:var(--primary-dark);
+    font-weight:800; margin-bottom:.8rem;
+  }
+  .step-card h3, .card h3, .instruction-box h3 { font-size:1.05rem; margin-bottom:.6rem; }
+  p, li, td { color: var(--text-secondary); }
+  ul, ol { margin-left: 1.1rem; }
+  .video-thumb { display:block; width:100%; aspect-ratio: 16/9; object-fit: cover; background:#0F172A; }
+  .video-body { padding: 1rem 1.1rem 1.2rem; }
+  .video-kicker { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color: var(--text-muted); margin-bottom:.35rem; }
+  .video-title { font-size:1rem; font-weight:800; color: var(--text); margin-bottom:.45rem; }
+  .video-link { display:inline-flex; margin-top:.6rem; text-decoration:none; color: var(--primary); font-weight:700; }
+  .table-wrap { overflow:hidden; }
+  table { width:100%; border-collapse: collapse; background: var(--surface); }
+  th, td { padding:.95rem 1rem; text-align:left; border-bottom:1px solid var(--border); vertical-align: top; }
+  th { font-size:12px; text-transform:uppercase; letter-spacing:.08em; color: var(--text-secondary); background:#F8FAFC; }
+  tr:last-child td { border-bottom:none; }
+  .footer-note { margin-top:2.5rem; text-align:center; color:var(--text-muted); font-size:13px; }
+  @media (max-width: 980px) { .steps-grid, .grid-3, .videos-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 760px) {
+    .hero { padding: 4rem 1rem 6rem; }
+    .hero h1 { font-size: 2.3rem; }
+    .hero-sub { font-size: 15px; }
+    .grid-2, .quick-access, .steps-grid, .grid-3, .videos-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 1rem 3rem; }
+  }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">PUC Minas · Instruções para a atividade de valoração</div>
+      <h1>Proposição do <span>Método de Valoração</span></h1>
+      <p class="hero-sub">Nesta etapa, cada grupo deve propor o método de valoração mais adequado ao serviço ecossistêmico que está estudando. A tarefa agora não é aplicar o método completo, mas justificar qual abordagem faz mais sentido para o serviço escolhido, para os dados disponíveis e para a escala do trabalho.</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">59–68</span><span class="stat-label">Páginas de leitura</span></div>
+        <div class="stat"><span class="stat-num">4</span><span class="stat-label">Vídeos de apoio</span></div>
+        <div class="stat"><span class="stat-num">1</span><span class="stat-label">Método por grupo</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="quick-access">
+      <a class="quick-card c1" href="#objetivo">
+        <div class="quick-icon">🎯</div>
+        <div class="quick-title">O que vocês devem fazer</div>
+        <div class="quick-desc">Propor e justificar o método de valoração para o serviço tema do grupo.</div>
+        <div class="quick-arrow">Ler agora →</div>
+      </a>
+      <a class="quick-card c2" href="#leituras">
+        <div class="quick-icon">📚</div>
+        <div class="quick-title">Leitura obrigatória</div>
+        <div class="quick-desc">Estudem as páginas 59 a 68 do texto de Cunha 2008, onde são apresentados métodos de valoração.</div>
+        <div class="quick-arrow">Ler agora →</div>
+      </a>
+      <a class="quick-card c3" href="#videos">
+        <div class="quick-icon">▶️</div>
+        <div class="quick-title">Vídeos de apoio</div>
+        <div class="quick-desc">Assistam aos quatro vídeos indicados para reforçar a compreensão dos métodos.</div>
+        <div class="quick-arrow">Ler agora →</div>
+      </a>
+      <a class="quick-card c4" href="#entrega">
+        <div class="quick-icon">🧩</div>
+        <div class="quick-title">Produto esperado</div>
+        <div class="quick-desc">Ao final, o grupo deve apresentar um método escolhido e uma justificativa consistente para a escolha.</div>
+        <div class="quick-arrow">Ler agora →</div>
+      </a>
+    </section>
+
+    <section class="section-block" id="objetivo">
+      <div class="section-header">
+        <span class="section-badge badge-info">Objetivo</span>
+        <h2 class="section-title">O que vocês devem fazer nesta etapa</h2>
+      </div>
+      <div class="instruction-box">
+        <h3>Tarefa do grupo</h3>
+        <p>Com base no serviço ecossistêmico tema do trabalho, vocês devem propor um método de valoração adequado ao caso estudado. A proposta deve mostrar que o grupo compreendeu o tipo de serviço analisado, os limites do estudo e a lógica do método selecionado. </p>
+      </div>
+    </section>
+
+    <section class="section-block" id="leituras">
+      <div class="section-header">
+        <span class="section-badge badge-doc">Estudo obrigatório</span>
+        <h2 class="section-title">Leitura que deve orientar a escolha do método</h2>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Texto-base</h3>
+          <p>Leiam e estudem as páginas 59 a 68 do texto <em>Valoração dos Serviços Ecossistêmicos em Bacias Hidrográficas</em>, de Cunha (2008), pois o trecho selecionado discute os métodos de valoração. </p>
+          <p><a href="https://pucminas.instructure.com/courses/262219/files/16297693/download?download_frd=1" target="_blank" rel="noopener noreferrer">Baixar o texto</a></p>
+        </article>
+        <article class="card">
+          <h3>Durante a leitura</h3>
+          <ul>
+            <li>Identifiquem quais métodos aparecem no trecho estudado. </li>
+            <li>Observem para que tipo de bem, serviço ou situação cada método parece mais adequado. </li>
+            <li>Anotem quais métodos dependem de preços de mercado, comportamento observado ou respostas declaradas. </li>
+
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <span class="section-badge badge-team">Roteiro</span>
+        <h2 class="section-title">Como o grupo deve decidir o método</h2>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card">
+          <div class="step-num">1</div>
+          <h3>Retomem o serviço</h3>
+          <p>Definam com clareza qual é o serviço ecossistêmico focal do grupo e qual benefício ele gera.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-num">2</div>
+          <h3>Levantem os dados possíveis</h3>
+          <p>Listem que tipo de informação o grupo tem ou pode obter: preços, uso direto, percepção, visitação, substituição, custos evitados ou outros.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-num">3</div>
+          <h3>Confrontem método e realidade</h3>
+          <p>Escolham um método compatível com o serviço estudado e com as evidências realmente disponíveis ao grupo.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-num">4</div>
+          <h3>Justifiquem a escolha</h3>
+          <p>Expliquem por que esse método é mais adequado que outros para o caso de vocês.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <span class="section-badge badge-info">Perguntas-guia</span>
+        <h2 class="section-title">Perguntas que devem orientar a discussão do grupo</h2>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Sobre o serviço</h3>
+          <ul>
+            <li>O serviço do grupo gera benefício direto, indireto?</li>
+            <li>Esse serviço está mais ligado ao uso de mercado, à proteção de riscos, à recreação, à paisagem ou à produção?</li>
+            <li>O grupo consegue observar ou estimar o(s) benefício(os) a partir dos dados levantados até aqui?</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Sobre o método</h3>
+          <ul>
+            <li>O método exige dados que o grupo realmente poderia obter?</li>
+            <li>O método faz sentido para o tipo de serviço estudado?</li>
+            <li>O grupo consegue explicar claramente por que escolheu esse método?</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block" id="videos">
+      <div class="section-header">
+        <span class="section-badge badge-videos">Vídeos</span>
+        <h2 class="section-title">Vídeos de apoio para assistir</h2>
+      </div>
+      <div class="videos-grid">
+        <article class="video-card">
+          <img class="video-thumb" src="https://img.youtube.com/vi/B64uHncVHZs/hqdefault.jpg" alt="Thumbnail do vídeo 1" loading="lazy" width="480" height="360">
+          <div class="video-body">
+            <div class="video-kicker">Vídeo 1</div>
+            <div class="video-title">Método de valoração baseado no mercado</div>
+            <p>Assistam a este vídeo para compreender abordagens de valoração ligadas a preços e mercados observáveis. </p>
+            <a class="video-link" href="https://www.youtube.com/watch?v=B64uHncVHZs&list=PLBfu1mD9hk64fFwG0R4hXvwFCSK3OBx-Z&index=3" target="_blank" rel="noopener noreferrer">Assistir →</a>
+          </div>
+        </article>
+        <article class="video-card">
+          <img class="video-thumb" src="https://img.youtube.com/vi/zUUk1yaSAC8/hqdefault.jpg" alt="Thumbnail do vídeo 2" loading="lazy" width="480" height="360">
+          <div class="video-body">
+            <div class="video-kicker">Vídeo 2</div>
+            <div class="video-title">Vídeo de apoio sobre métodos de valoração</div>
+            <p>Assistam a este material e anotem qual método é apresentado, que tipo de dado ele exige e em que situação ele pode ser usado. </p>
+            <a class="video-link" href="https://www.youtube.com/watch?v=zUUk1yaSAC8&list=PLBfu1mD9hk64fFwG0R4hXvwFCSK3OBx-Z&index=4" target="_blank" rel="noopener noreferrer">Assistir →</a>
+          </div>
+        </article>
+        <article class="video-card">
+          <img class="video-thumb" src="https://img.youtube.com/vi/UbrrAzhUMyE/hqdefault.jpg" alt="Thumbnail do vídeo 3" loading="lazy" width="480" height="360">
+          <div class="video-body">
+            <div class="video-kicker">Vídeo 3</div>
+            <div class="video-title">Vídeo de apoio sobre métodos de valoração</div>
+            <p>Usem este vídeo para comparar o método apresentado com a realidade do serviço estudado pelo grupo. </p>
+            <a class="video-link" href="https://www.youtube.com/watch?v=UbrrAzhUMyE&list=PLBfu1mD9hk64fFwG0R4hXvwFCSK3OBx-Z&index=5" target="_blank" rel="noopener noreferrer">Assistir →</a>
+          </div>
+        </article>
+        <article class="video-card">
+          <img class="video-thumb" src="https://img.youtube.com/vi/KBJ6bulHJmY/hqdefault.jpg" alt="Thumbnail do vídeo 4" loading="lazy" width="480" height="360">
+          <div class="video-body">
+            <div class="video-kicker">Vídeo 4</div>
+            <div class="video-title">Vídeo de apoio sobre métodos de valoração</div>
+            <p>Ao assistir, observem como o método discutido poderia ou não ser adaptado ao contexto da Fazenda Experimental. </p>
+            <a class="video-link" href="https://www.youtube.com/watch?v=KBJ6bulHJmY&list=PLBfu1mD9hk64fFwG0R4hXvwFCSK3OBx-Z&index=6" target="_blank" rel="noopener noreferrer">Assistir →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-header">
+        <span class="section-badge badge-team">Síntese</span>
+        <h2 class="section-title">O que o grupo deve discutir após estudar o material</h2>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Qual método parece mais adequado?</h3>
+          <p>O grupo deve indicar qual método melhor se ajusta ao serviço estudado, sem escolher apenas pelo nome mais conhecido ou mais complexo.</p>
+        </article>
+        <article class="card">
+          <h3>Por que ele é viável?</h3>
+          <p>É importante explicar se o método pode ser sustentado com os dados de campo, observações, informações secundárias e limites do trabalho.</p>
+        </article>
+        <article class="card">
+          <h3>Que limite ele possui?</h3>
+          <p>Além da justificativa, o grupo deve reconhecer limites, simplificações e cuidados na aplicação do método escolhido.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block" id="entrega">
+      <div class="section-header">
+        <span class="section-badge badge-doc">Entrega</span>
+        <h2 class="section-title">Produto esperado da atividade</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>O que deve aparecer na resposta do grupo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Serviço focal</td>
+              <td>Definição clara do serviço ecossistêmico tema do grupo. </td>
+            </tr>
+            <tr>
+              <td>Método escolhido</td>
+              <td>Indicação explícita do método de valoração proposto. </td>
+            </tr>
+            <tr>
+              <td>Justificativa</td>
+              <td>Explicação de por que esse método é o mais adequado ao caso estudado. </td>
+            </tr>
+            <tr>
+              <td>Dados necessários</td>
+              <td>Descrição dos dados e evidências que o grupo usaria para operacionalizar o método. </td>
+            </tr>
+            <tr>
+              <td>Limites</td>
+              <td>Reconhecimento das restrições e cuidados da proposta. </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    
+    <p class="footer-note">Página instrucional elaborada para orientar os grupos na proposição do método de valoração.</p>
+  </main>
+</body>
+</html>
